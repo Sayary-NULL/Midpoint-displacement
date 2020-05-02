@@ -40,7 +40,9 @@ int main(int argc, char **argv)
 
     std::cout << R << std::endl;
 
-    int len = SET_WIDTH / 2;
+    int len = 200;//SET_WIDTH / 2;
+    double modif = (double)SET_WIDTH/ len;
+    std::cout << modif << std::endl;
     std::vector<double> vect(len);
     vect[0] = random(-(float)SET_HEIGHT/4, (float)SET_HEIGHT/4);
     vect[len - 1] = random(-(float)SET_HEIGHT/4, (float)SET_HEIGHT/4);
@@ -51,7 +53,7 @@ int main(int argc, char **argv)
     for(int i = 0; i < len; i++)
     {
         std::cout << vect[i] << " ";
-        line[i] = sf::Vector2f(i*2, - vect[i]+SET_HEIGHT/2);
+        line[i] = sf::Vector2f(i*modif, - vect[i]+SET_HEIGHT/2);
         if((i + 1) % 100 == 0)
             std::cout << std::endl;
     }
@@ -102,7 +104,7 @@ int main(int argc, char **argv)
 
                             for (int i = Left, j = 0; i < Right; i++, j++)
                             {
-                                line[j] = sf::Vector2f(j * 2, -vect[i] + SET_HEIGHT / 2);
+                                line[j] = sf::Vector2f(j * modif, -vect[i] + SET_HEIGHT / 2);
                             }
                             break;
 
@@ -127,7 +129,7 @@ int main(int argc, char **argv)
 
                             for (int i = Left, j = 0; i < Right; i++, j++)
                             {
-                                line[j] = sf::Vector2f(j * 2, -vect[i] + SET_HEIGHT / 2);
+                                line[j] = sf::Vector2f(j * modif, -vect[i] + SET_HEIGHT / 2);
                             }
                             break;
                     }
@@ -137,7 +139,7 @@ int main(int argc, char **argv)
 
         window.clear();
         window.draw(rect);
-        window.draw(line, len, sf::Lines);
+        window.draw(line, len, sf::LineStrip);
         window.display();
         sleep(1);
     }
