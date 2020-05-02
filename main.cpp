@@ -109,10 +109,7 @@ int main(int argc, char **argv)
                             break;
 
                         case sf::Keyboard::Right:
-                            Left += 10;
-                            Right += 10;
-
-                            if(Right >= vect.size())
+                            if(Right + 10 >= vect.size())
                             {
                                 double match = random(-(float) SET_HEIGHT / 4, (float) SET_HEIGHT / 4);
                                 for (int i = 0; i < 60 - 1; i++)
@@ -120,6 +117,9 @@ int main(int argc, char **argv)
                                 vect.push_back(match);
                                 midpoint(vect,  Right - 1, Right + 60, 61, R);
                             }
+
+                            Left += 10;
+                            Right += 10;
 
                             if(Warning)
                             {
