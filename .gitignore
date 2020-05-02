@@ -1,0 +1,3 @@
+#игнорирование файлов
+.idea/
+cmake-build-debug/
