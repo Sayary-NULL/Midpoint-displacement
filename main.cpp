@@ -2,9 +2,15 @@
 #include <chrono>
 #include <random>
 #include <SFML/Graphics.hpp>
-#include <unistd.h>
 #include <list>
 #include <vector>
+
+#ifdef __linux__
+    #include <unistd.h>
+#elif defined(_WIN32)
+    #include <windows.h>
+    #define sleep(arg) Sleep(arg*1000)
+#endif
 
 double random(double min, double max)
 {
@@ -20,7 +26,8 @@ void midpoint(std::vector<double> &vect, int left, int right, int len, double r 
 
     double hl = vect[left],
         hr = vect[right];
-    double h = (hl+hr)/2 + random(-r*len, r*len);
+    //double h = (hl+hr)/2 + random(-r*len, r*len);
+    double h = (hl+hr)/2 + r*len*random(-1, 1);
     int index = floor(left + (right - left) / 2);
     vect[index]= h;
     midpoint(vect, left, index, len / 2, r);
@@ -38,11 +45,11 @@ int main(int argc, char **argv)
         R = atof(argv[1]);
     }
 
-    std::cout << R << std::endl;
+    std::cout << "R: " << R << std::endl;
 
     int len = 200;//SET_WIDTH / 2;
     double modif = (double)SET_WIDTH/ len;
-    std::cout << modif << std::endl;
+    std::cout << "modif: " << modif << std::endl;
     std::vector<double> vect(len);
     vect[0] = random(-(float)SET_HEIGHT/4, (float)SET_HEIGHT/4);
     vect[len - 1] = random(-(float)SET_HEIGHT/4, (float)SET_HEIGHT/4);
